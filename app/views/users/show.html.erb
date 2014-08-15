@@ -2,6 +2,11 @@
   <div class="col-lg-12 text-center">
     <p>
       You're player <%= @player %>.
+      <% if @player == 1 %>
+        <strong class="text-danger">RED</strong>
+      <% else %>
+        <strong class="text-primary">BLUE</strong>
+      <% end %>
     </p>
   </div>
 </div>
@@ -12,18 +17,24 @@
       <tbody>
         <!-- This will house the buttons to drop discs -->
         <tr>
-          <% @board_array.first.count.times do |column| %>
+          <% Board::COLS.times do |column| %>
             <td>
               <button class="btn">↓</button>
             </td>
           <% end %>
         </tr>
 
-        <% for row in @board_array do %>
+        <% Board::ROWS.times do |row| %>
           <tr>
-            <% for column in row do %>
+            <% Board::COLS.times do |col| %>
               <td>
-                <div></div>
+                <% if @player_one_array[row][col] == 1 %>
+                  <div class="red"></div>
+                <% elsif @player_two_array[row][col] == 1 %>
+                  <div class="blue"></div>
+                <% else %>
+                  <div></div>
+                <% end %>
               </td>
             <% end %>
           </tr>

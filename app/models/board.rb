@@ -19,7 +19,7 @@ class Board < ActiveRecord::Base
 
   # To ease showing this in the views
   # convert the bitboard representation to an array
-  def to_a
+  def to_a(flipped = false)
     # Create empty board array
     board = Array.new(ROWS)
     board = board.map { |r| Array.new(COLS, 0) }
@@ -28,6 +28,7 @@ class Board < ActiveRecord::Base
     self.bitboard.length.times do |position|
       row = position % (ROWS + 1)
       col = position / COLS
+      col = flipped ? (COLS - col - 1) : col
 
       # We don't care about the top row
       next if row == 6
