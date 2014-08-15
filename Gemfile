@@ -30,3 +30,4 @@ gem 'spring',        group: :development
 
 gem 'twitter-bootstrap-rails'
 gem 'pusher'
+gem 'rails_12factor', group: :production
