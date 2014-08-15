@@ -8,12 +8,20 @@
     width: 40px;
     height: 40px;
 
-    button {
+    div {
       $button-size: 30px;
       width: $button-size;
       height: $button-size;
-
       border-radius: $button-size / 2;
+      background-color: lightgray;
+
+      &.red {
+        background-color: red;
+      }
+
+      &.blue {
+        background-color: blue;
+      }
     }
   }
 }
