@@ -17,6 +17,8 @@ class Board < ActiveRecord::Base
   def reset_board!
     self.bitboard = 0
     self.save
+
+    Pusher['moves'].trigger('reset', {})
   end
 
   # Special method to get zero-padded bitboard
@@ -73,6 +75,12 @@ class Board < ActiveRecord::Base
     new_bitboard = self.class.binary_string(self.bitboard)
     new_bitboard[(column * COLS) + row] = "1"
     self.update_attribute :bitboard, new_bitboard.to_i(2)
+
+    Pusher['moves'].trigger('drop', {
+      row: (ROWS - row - 1),
+      col: column,
+      user_id: self.user_id
+    })
 
     return [ROWS - row - 1, column]
   end
