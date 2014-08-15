@@ -8,6 +8,14 @@
         <strong class="text-primary">BLUE</strong>
       <% end %>
     </p>
+
+    <p id="your_turn" style="<%= unless @turn == @player then 'display:none' end %>">
+      Your turn
+    </p>
+
+    <p id="not_your_turn" style="<%= if @turn == @player then 'display:none' end %>">
+      Your opponent's turn
+    </p>
   </div>
 </div>
 
@@ -19,7 +27,7 @@
         <tr>
           <% Board::COLS.times do |column| %>
             <td>
-              <%= button_to '↓', play_path(@player, column: column), remote: true, method: :post, class: 'btn' %>
+              <%= button_to '↓', play_path(@player, column: column), remote: true, method: :post, class: 'btn btn-drop', disabled: (@turn != @player) %>
             </td>
           <% end %>
         </tr>

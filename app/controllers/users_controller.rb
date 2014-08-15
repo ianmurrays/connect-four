@@ -2,6 +2,7 @@ class UsersController < ApplicationController
   before_filter :load_boards
 
   def show
+    @turn = @player_one.turn ? 1 : 2
   end
 
   def play

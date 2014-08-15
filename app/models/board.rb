@@ -16,9 +16,12 @@ class Board < ActiveRecord::Base
 
   def reset_board!
     self.bitboard = 0
+    self.turn = self.user_id == 1 # Player 1 always begins.
     self.save
 
-    Pusher['moves'].trigger('reset', {})
+    Pusher['moves'].trigger('reset', {
+      turn: 1
+    })
   end
 
   # Special method to get zero-padded bitboard
@@ -74,12 +77,14 @@ class Board < ActiveRecord::Base
 
     new_bitboard = self.class.binary_string(self.bitboard)
     new_bitboard[(column * COLS) + row] = "1"
-    self.update_attribute :bitboard, new_bitboard.to_i(2)
+    self.update_attributes! bitboard: new_bitboard.to_i(2), turn: false
+    opponent_board.update_attribute :turn, true
 
     Pusher['moves'].trigger('drop', {
       row: (ROWS - row - 1),
       col: column,
-      user_id: self.user_id
+      user_id: self.user_id,
+      turn: opponent_board.user_id
     })
 
     return [ROWS - row - 1, column]
