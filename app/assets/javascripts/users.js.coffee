@@ -14,3 +14,8 @@ channel.bind 'drop', (data) ->
   # No need to drop a disc if this notification was triggered by us
   color = $('table').data('color')
   $("table[data-user-id!=#{data.user_id}] #cell_#{data.row}_#{data.col} div").addClass(color)
+
+channel.bind 'win', (data) ->
+  user_id = $('table').data('user-id')
+
+  alert('You lose! :(') if user_id != data.user_id

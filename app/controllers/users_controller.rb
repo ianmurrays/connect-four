@@ -15,6 +15,15 @@ class UsersController < ApplicationController
     # play will return if the play is valid (column might be full)
     @play = board.play!(column, opponent)
 
+    # Did we win?
+    if board.check_win
+      @win = true
+
+      Pusher['moves'].trigger('win', {
+        user_id: @player
+      })
+    end
+
     respond_to do |f|
       f.js
     end
