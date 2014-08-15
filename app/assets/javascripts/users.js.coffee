@@ -32,3 +32,8 @@ channel.bind 'win', (data) ->
   alert('You lose! :(') if user_id != data.user_id
 
   $('.btn-drop').prop('disabled', true)
+
+# Disable buttons once they're clicked!
+$ -> $('.btn-drop').click ->
+  $('.btn-drop').prop('disabled', true)
+  $(this).parent().submit()
