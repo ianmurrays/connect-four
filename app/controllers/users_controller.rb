@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  before_filter :ensure_boards!
   before_filter :load_boards
 
   def show
@@ -51,5 +52,18 @@ class UsersController < ApplicationController
     # Get the other player's board, flipped
     @player_two = Board.find_by_user_id(2)
     @player_two_array = @player_two.to_a
+  end
+
+  # Do we have the boards created?
+  def ensure_boards!
+    if Board.count != 2
+      Board.destroy_all
+
+      board_1 = Board.create user_id: 1
+      board_2 = Board.create user_id: 2
+
+      board_1.reset_board!
+      board_2.reset_board!
+    end
   end
 end
