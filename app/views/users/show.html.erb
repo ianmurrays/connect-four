@@ -12,14 +12,14 @@
       <tbody>
         <!-- This will house the buttons to drop discs -->
         <tr>
-          <% @board.first.count.times do |column| %>
+          <% @board_array.first.count.times do |column| %>
             <td>
               <button class="btn">↓</button>
             </td>
           <% end %>
         </tr>
 
-        <% for row in @board do %>
+        <% for row in @board_array do %>
           <tr>
             <% for column in row do %>
               <td>
