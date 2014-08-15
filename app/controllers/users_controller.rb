@@ -20,6 +20,15 @@ class UsersController < ApplicationController
     end
   end
 
+  def reset
+    @player_one.reset_board!
+    @player_two.reset_board!
+
+    respond_to do |f|
+      f.js
+    end
+  end
+
   private
 
   def load_boards
