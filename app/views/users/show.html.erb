@@ -19,7 +19,7 @@
         <tr>
           <% Board::COLS.times do |column| %>
             <td>
-              <button class="btn">↓</button>
+              <%= button_to '↓', play_path(@player, column: column), remote: true, method: :post, class: 'btn' %>
             </td>
           <% end %>
         </tr>
@@ -27,7 +27,7 @@
         <% Board::ROWS.times do |row| %>
           <tr>
             <% Board::COLS.times do |col| %>
-              <td>
+              <td id="<%= "cell_#{row}_#{col}" %>">
                 <% if @player_one_array[row][col] == 1 %>
                   <div class="red"></div>
                 <% elsif @player_two_array[row][col] == 1 %>

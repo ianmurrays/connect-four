@@ -15,7 +15,7 @@ ActiveRecord::Schema.define(version: 20140815153710) do
 
   create_table "boards", force: true do |t|
     t.integer  "user_id"
-    t.string   "bitboard"
+    t.integer  "bitboard"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

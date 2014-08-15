@@ -1,0 +1,7 @@
+<% unless @play %>
+  alert('That column is full!');
+<% else %>
+  // Update the correct cell
+  console.log('Updating', '<%= j @play.inspect %>');
+  $('#cell_<%= @play[0] %>_<%= @play[1] %> div').addClass('<%= if @player == 1 then 'red' else 'blue' end %>');
+<% end %>
